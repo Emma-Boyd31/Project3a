@@ -1,36 +1,41 @@
-{% extends 'base.html' %}
-
-{% block title %}Stock Chart Generator{% endblock %}
-
-{% block content %}
-<h1>Stock Chart Generator</h1>
 <form method="POST">
-    <label for="symbol">Stock Symbol:</label>
-    <select name="symbol" id="symbol">
-        {% for s in symbols %}
-        <option value="{{ s }}">{{ s }}</option>
-        {% endfor %}
-    </select><br><br>
+    <div class="form-row">
+        <label for="symbol">Choose Symbol:</label>
+        <select name="symbol" id="symbol">
+            {% for s in symbols %}
+            <option value="{{ s }}" {% if s == selected_symbol %}selected{% endif %}>{{ s }}</option>
+            {% endfor %}
+        </select>
+    </div>
 
-    <label for="chart_type">Chart Type:</label>
-    <select name="chart_type" id="chart_type">
-        <option value="line">Line</option>
-        <option value="bar">Bar</option>
-    </select><br><br>
+    <div class="form-row">
+        <label for="chart_type">Choose Chart Type:</label>
+        <select name="chart_type" id="chart_type">
+            <option value="line" {% if selected_chart == 'line' %}selected{% endif %}>Line</option>
+            <option value="bar" {% if selected_chart == 'bar' %}selected{% endif %}>Bar</option>
+        </select>
+    </div>
 
-    <label for="time_series">Time Series:</label>
-    <select name="time_series" id="time_series">
-        <option value="daily">Daily</option>
-        <option value="weekly">Weekly</option>
-        <option value="monthly">Monthly</option>
-    </select><br><br>
+    <div class="form-row">
+        <label for="time_series">Choose Time Series:</label>
+        <select name="time_series" id="time_series">
+            <option value="daily" {% if selected_series == 'daily' %}selected{% endif %}>Daily</option>
+            <option value="weekly" {% if selected_series == 'weekly' %}selected{% endif %}>Weekly</option>
+            <option value="monthly" {% if selected_series == 'monthly' %}selected{% endif %}>Monthly</option>
+        </select>
+    </div>
 
-    <label for="start_date">Start Date:</label>
-    <input type="date" name="start_date"><br><br>
+    <div class="form-row">
+        <label for="start_date">Start Date:</label>
+        <input type="date" name="start_date" value="{{ selected_start }}">
+    </div>
 
-    <label for="end_date">End Date:</label>
-    <input type="date" name="end_date"><br><br>
+    <div class="form-row">
+        <label for="end_date">End Date:</label>
+        <input type="date" name="end_date" value="{{ selected_end }}">
+    </div>
 
-    <input type="submit" value="Generate Chart">
+    <div class="form-row" style="justify-content: center;">
+        <input type="submit" value="Submit" style="width: 50%;">
+    </div>
 </form>
-{% endblock %}

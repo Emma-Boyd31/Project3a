@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %} Create Task {% endblock %}
+
+{% block content %}
+    <h1>Create Task</h1>
+    <form action="{{ url_for('tasks.update_task_post', id=task.id) }}" method="POST">
+        <label for="title">Title:</label><br>
+        <input type="text" id="title" name="title" value="{{ task.title }}" ><br><br>
+        <label for="priority">Priority: </label><br> 
+        <select id="priority" name="priority">
+            <option value="High" {% if task.priority == 'High' %}selected{% endif %}>High</option>
+            <option value="Medium" {% if task.priority == 'Medium' %}selected{% endif %}>Medium</option>
+            <option value="Low" {% if task.priority == 'Low' %}selected{% endif %}>Low</option>
+        </select><br><br>
+        <label for="due_date">Due Date:</label><br>
+        <input type="date" id="due_date" name="due_date"
+        value="{{ task.due_date.strftime('%Y-%m-%d') if task.due_date else '' }}"><br><br>
+        <input type="submit" value="Submit">
+    </form>
+
+{% endblock %}

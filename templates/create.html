@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %} Create Task {% endblock %}
+
+{% block content %}
+    <h1>Create Task</h1>
+    <form action="{{ url_for('tasks.create_task_post') }}" method="POST">
+        <label for="title">Title:</label><br>
+        <input type="text" id="title" name="title"><br><br>
+        <label for="priority">Priority: </label><br>
+        <select id="priority" name="priority">
+            <option value="High">High</option>
+            <option value="Medium">Medium</option>
+            <option value="Low">Low</option>
+        </select><br><br>
+        <label for="due_date">Due Date:</label><br>
+        <input type="date" id="due_date" name="due_date"><br><br>
+        <input type="submit" value="Submit">
+    </form>
+
+{% endblock %}

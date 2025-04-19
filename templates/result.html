@@ -1,44 +1,11 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 
 {% block title %}Stock Chart{% endblock %}
 
 {% block content %}
-<h1>Stock Data Visualizer</h1>
-
-<form method="POST" class="stock-form">
-    <label for="symbol">Choose Symbol:</label>
-    <select name="symbol" id="symbol">
-        {% for s in symbols %}
-        <option value="{{ s }}" {% if s == selected_symbol %}selected{% endif %}>{{ s }}</option>
-        {% endfor %}
-    </select>
-
-    <label for="chart_type">Choose Chart Type:</label>
-    <select name="chart_type" id="chart_type">
-        <option value="bar" {% if selected_chart == 'bar' %}selected{% endif %}>Bar</option>
-        <option value="line" {% if selected_chart == 'line' %}selected{% endif %}>Line</option>
-    </select>
-
-    <label for="time_series">Choose Time Series:</label>
-    <select name="time_series" id="time_series">
-        <option value="daily" {% if selected_series == 'daily' %}selected{% endif %}>Daily</option>
-        <option value="weekly" {% if selected_series == 'weekly' %}selected{% endif %}>Weekly</option>
-        <option value="monthly" {% if selected_series == 'monthly' %}selected{% endif %}>Monthly</option>
-    </select>
-
-    <label for="start_date">Start Date:</label>
-    <input type="date" name="start_date" value="{{ selected_start }}">
-
-    <label for="end_date">End Date:</label>
-    <input type="date" name="end_date" value="{{ selected_end }}">
-
-    <input type="submit" value="Submit">
-</form>
-
-{% if chart %}
-    <div style="margin-top: 30px; text-align: center;">
-        <img src="{{ chart }}" alt="Stock Chart" style="max-width: 100%; border: 1px solid #ccc;">
-    </div>
-{% endif %}
-
+<div class="card">
+    <h2>Stock Chart</h2>
+    <img src="{{ chart }}" alt="Stock Chart"><br><br>
+    <a href="{{ url_for('index') }}">← Back to Form</a>
+</div>
 {% endblock %}

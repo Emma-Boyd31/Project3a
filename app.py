@@ -5,12 +5,11 @@ matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import os
 import requests
-from io import StringIO
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'
 
-API_KEY = "DQS7RLXP4BNSGO70"  # Replace with your real key if needed
+API_KEY = "DQS7RLXP4BNSGO70"
 
 def load_symbols():
     df = pd.read_csv("stocks.csv")
@@ -18,13 +17,13 @@ def load_symbols():
 
 def get_chart(symbol, chart_type, time_series, start_date, end_date):
     function_map = {
-        "daily": "TIME_SERIES_DAILY",  # ✅ Free-tier safe
+        "daily": "TIME_SERIES_DAILY",
         "weekly": "TIME_SERIES_WEEKLY",
         "monthly": "TIME_SERIES_MONTHLY"
     }
 
     function = function_map.get(time_series, "TIME_SERIES_DAILY")
-    url = f"https://www.alphavantage.co/query?function={function}&symbol={symbol}&apikey={API_KEY}&datatype=json&outputsize=compact"
+    url = f"https://www.alphavantage.co/query?function={function}&symbol={symbol}&apikey={API_KEY}&datatype=json&outputsize=full"
     
     response = requests.get(url)
     print("Alpha Vantage URL:", url)
@@ -37,8 +36,8 @@ def get_chart(symbol, chart_type, time_series, start_date, end_date):
         "TIME_SERIES_WEEKLY": "Weekly Time Series",
         "TIME_SERIES_MONTHLY": "Monthly Time Series"
     }
-    series_key = key_map.get(function)
 
+    series_key = key_map.get(function)
     if series_key not in data:
         raise ValueError("API returned unexpected data — check symbol, date, or API limit.")
 
@@ -88,7 +87,31 @@ def index():
             flash("All fields are required.")
             return render_template("index.html", symbols=symbols)
 
-        if end_date < start_date:
+        if symbol not in symbols:
+            flash("Invalid stock symbol selected.")
+            return render_template("index.html", symbols=symbols)
+
+        if chart_type not in ['line', 'bar']:
+            flash("Invalid chart type selected.")
+            return render_template("index.html", symbols=symbols)
+
+        if time_series not in ['daily', 'weekly', 'monthly']:
+            flash("Invalid time series selected.")
+            return render_template("index.html", symbols=symbols)
+
+        try:
+            start = pd.to_datetime(start_date)
+        except:
+            flash("Invalid start date.")
+            return render_template("index.html", symbols=symbols)
+
+        try:
+            end = pd.to_datetime(end_date)
+        except:
+            flash("Invalid end date.")
+            return render_template("index.html", symbols=symbols)
+
+        if end < start:
             flash("End date must be after start date.")
             return render_template("index.html", symbols=symbols)
 

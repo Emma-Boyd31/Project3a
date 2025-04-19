@@ -1,23 +1,21 @@
 body {
-  background-color: #ccc;
+  background-color: #e6edf7;
   font-family: Arial, sans-serif;
   margin: 0;
-  padding: 0;
+  padding: 40px;
 }
 
 .card {
   background-color: white;
-  max-width: 600px;
-  margin: 50px auto;
-  padding: 30px;
-  border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  width: 600px;
+  padding: 25px 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   border: 1px solid #ccc;
 }
 
 .card h2 {
-  text-align: center;
-  font-size: 24px;
+  font-size: 20px;
   margin-bottom: 20px;
 }
 
@@ -30,7 +28,7 @@ body {
 .form-group {
   display: flex;
   align-items: center;
-  gap: 15px;
+  justify-content: space-between;
 }
 
 .form-group label {
@@ -43,27 +41,27 @@ body {
   flex: 1;
   padding: 6px;
   border: 1px solid #ccc;
-  border-radius: 5px;
+  border-radius: 6px;
 }
 
 .submit-btn {
-  margin-left: 160px;
-  padding: 10px 25px;
+  width: 120px;
+  padding: 8px 12px;
   background-color: #A9A9A9;
   color: white;
   font-weight: bold;
   border: none;
-  border-radius: 5px;
+  border-radius: 6px;
   cursor: pointer;
+  margin-left: 0; /* align with labels */
 }
 
 .submit-btn:hover {
-  background-color: #ccc;
+  background-color: #8e8e8e;
 }
-
 .card img {
-  margin-top: 20px;
-  border-radius: 8px;
+  margin-top: 25px;
+  border-radius: 6px;
   max-width: 100%;
   border: 1px solid #ccc;
 }

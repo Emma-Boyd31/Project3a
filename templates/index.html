@@ -5,6 +5,7 @@
 {% block content %}
 <div class="card">
     <h2>Stock Data Form</h2>
+
     {% with messages = get_flashed_messages() %}
       {% for msg in messages %}
         <p style="color: red;">{{ msg }}</p>
@@ -13,8 +14,8 @@
 
     <form method="POST" class="form-block">
         <div class="form-group">
-            <label>Symbol:</label>
-            <select name="symbol">
+            <label for="symbol">Choose Symbol:</label>
+            <select name="symbol" id="symbol">
                 {% for symbol in symbols %}
                 <option value="{{ symbol }}" {% if symbol == selected_symbol %}selected{% endif %}>{{ symbol }}</option>
                 {% endfor %}
@@ -22,16 +23,16 @@
         </div>
 
         <div class="form-group">
-            <label>Chart Type:</label>
-            <select name="chart_type">
+            <label for="chart_type">Choose Chart Type:</label>
+            <select name="chart_type" id="chart_type">
                 <option value="line" {% if selected_chart == 'line' %}selected{% endif %}>Line</option>
                 <option value="bar" {% if selected_chart == 'bar' %}selected{% endif %}>Bar</option>
             </select>
         </div>
 
         <div class="form-group">
-            <label>Time Series:</label>
-            <select name="time_series">
+            <label for="time_series">Choose Time Series:</label>
+            <select name="time_series" id="time_series">
                 <option value="daily" {% if selected_series == 'daily' %}selected{% endif %}>Daily</option>
                 <option value="weekly" {% if selected_series == 'weekly' %}selected{% endif %}>Weekly</option>
                 <option value="monthly" {% if selected_series == 'monthly' %}selected{% endif %}>Monthly</option>
@@ -39,21 +40,20 @@
         </div>
 
         <div class="form-group">
-            <label>Start Date:</label>
-            <input type="date" name="start_date" value="{{ selected_start }}">
+            <label for="start_date">Choose Start Date:</label>
+            <input type="date" name="start_date" id="start_date" value="{{ selected_start }}">
         </div>
 
         <div class="form-group">
-            <label>End Date:</label>
-            <input type="date" name="end_date" value="{{ selected_end }}">
+            <label for="end_date">Choose End Date:</label>
+            <input type="date" name="end_date" id="end_date" value="{{ selected_end }}">
         </div>
 
-        <button class="submit-btn" type="submit">Generate Chart</button>
+        <button class="submit-btn" type="submit">Submit</button>
     </form>
 
     {% if chart %}
         <hr>
-        <h2 style="text-align: center;">Generated Chart</h2>
         <img src="{{ chart }}" alt="Stock Chart">
     {% endif %}
 </div>
